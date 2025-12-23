@@ -22,22 +22,24 @@ jobs:
           registry-url: https://registry.npmjs.org
           cache: pnpm
 
-      # 3️⃣ Install pnpm (official way)
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      
-      # 4️⃣ Install dependencies (repo root)
+      # 3️⃣ Install pnpm globally using npm
+      - name: Install pnpm globally
+        run: npm install -g pnpm@latest
+
+      # 4️⃣ Verify pnpm is installed
+      - name: Check pnpm version
+        run: pnpm --version
+
+      # 5️⃣ Install dependencies at repo root
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # 5️⃣ Build the arcade-games package
+      # 6️⃣ Build the arcade-games package
       - name: Build arcade-games
         working-directory: packages/arcade-games
         run: pnpm build
-  
-      # 6️⃣ Publish the arcade-games package to npm
+
+      # 7️⃣ Publish the arcade-games package to npm
       - name: Publish arcade-games
         working-directory: packages/arcade-games
         run: pnpm publish --access public --no-git-checks
