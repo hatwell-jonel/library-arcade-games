@@ -28,8 +28,9 @@ jobs:
       - name: Check pnpm
         run: pnpm --version
 
-      # - name: Install dependencies
-      #   run: pnpm install --frozen-lockfile
+      - name: Install dependencies
+        working-directory: ${{ github.workspace }}
+        run: pnpm install --frozen-lockfile
 
       - name: Build arcade-games
         working-directory: packages/arcade-games
