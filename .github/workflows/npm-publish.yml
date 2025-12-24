@@ -25,6 +25,6 @@ jobs:
 
       - run: pnpm --filter @jonelhatwell/arcade-games build
 
-      - run: pnpm --filter @jonelhatwell/arcade-games publish --access public
+      - run: pnpm --filter @jonelhatwell/arcade-games publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
