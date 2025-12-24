@@ -1,44 +1,52 @@
-name: Publish Arcade Games
+name: Publish to NPM
 
 on:
   push:
     tags:
-      - "v*.*.*"
+      - 'v*.*.*'  # Triggers on version tags like v1.2.10
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-
+    
+    permissions:
+      contents: read
+      id-token: write  # Required for npm provenance
+    
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          path: library-arcade-games
-        
+      
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 9
-
-      - name: Check pnpm
-        run: pnpm --version
-
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+      
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-        working-directory: ${{ github.workspace }}/..
-
-      - name: Build arcade-games
-        working-directory: packages/arcade-games
-        run: pnpm build
-
-      - name: Publish arcade-games
-        working-directory: packages/arcade-games
-        run: pnpm publish --access public --no-git-checks
+        run: npm ci
+        working-directory: ./packages/arcade-games
+      
+      - name: Build library
+        run: npm run build
+        working-directory: ./packages/arcade-games
+      
+      - name: Publish to NPM
+        run: npm publish --provenance --access public
+        working-directory: ./packages/arcade-games
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          body: |
+            Published @jonelhatwell/arcade-games@${{ github.ref_name }}
+            
+            See [CHANGELOG.md](CHANGELOG.md) for details.
+          draft: false
+          prerelease: false
