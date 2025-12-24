@@ -3,40 +3,43 @@ name: Publish to NPM
 on:
   push:
     tags:
-      - 'v*.*.*'  # Triggers on version tags like v1.2.10
+      - 'v*.*.*'
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-    
+
     permissions:
       contents: read
-      id-token: write  # Required for npm provenance
-    
+      id-token: write   # required for npm provenance
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
-      
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+          run_install: false
+
       - name: Install dependencies
-        run: npm ci
-        working-directory: ./packages/arcade-games
-      
+        run: pnpm install --frozen-lockfile
+
       - name: Build library
-        run: npm run build
-        working-directory: ./packages/arcade-games
-      
+        run: pnpm --filter @jonelhatwell/arcade-games build
+
       - name: Publish to NPM
-        run: npm publish --provenance --access public
-        working-directory: ./packages/arcade-games
+        run: pnpm --filter @jonelhatwell/arcade-games publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      
+
       - name: Create GitHub Release
         uses: actions/create-release@v1
         env:
@@ -46,7 +49,5 @@ jobs:
           release_name: Release ${{ github.ref_name }}
           body: |
             Published @jonelhatwell/arcade-games@${{ github.ref_name }}
-            
-            See [CHANGELOG.md](CHANGELOG.md) for details.
           draft: false
           prerelease: false
