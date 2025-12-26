@@ -13,7 +13,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import React, { useState } from "react";
-import { SpaceDodger } from "@jonelhatwell/arcade-games";
+import { MemoryGame, Snake, SpaceDodger } from "@jonelhatwell/arcade-games";
 
 export default function Home() {
 
@@ -24,23 +24,23 @@ export default function Home() {
                 <Button variant="outline">Open Dialog</Button>
                 </DialogTrigger>
                 <DialogContent 
-                className="max-w-3xl bg-gray-900 border-[#ff6b6b] shadow-[0_0_40px_rgba(255,107,107,0.98)]"
-                showCloseButton={false}
+                    className="max-w-3xl bg-gray-900 border-[#ff6b6b] shadow-[0_0_40px_rgba(255,107,107,0.98)]"
+                    showCloseButton={false}
                 >
 
                 <DialogHeader className='sr-only'>
                     <DialogTitle className="text-3xl font-bold text-center">
-                    🕹 <span className='bg-linear-to-b from-purple-500 via-pink-500 to-red-500 bg-clip-text text-transparent'>ARCADE</span> 
+                        🕹 <span className='bg-linear-to-b from-purple-500 via-pink-500 to-red-500 bg-clip-text text-transparent'>ARCADE</span> 
                     </DialogTitle>
                     <DialogDescription className="text-neutral-400 text-center">
-                    Choose your game and let the fun begin!
+                        Choose your game and let the fun begin!
                     </DialogDescription>
                 </DialogHeader> 
                 <ArcadeGame />
                 </DialogContent>
             </Dialog>
-            <div className="relative h-full w-full overflow-hidde">
-                <SpaceDodger />
+            <div className="border border-red-500">
+                <MemoryGame />
             </div>
         </>
             
@@ -118,12 +118,12 @@ function ArcadeGame() {
 
                 {/* Footer */}
                 <DialogFooter className="border-t pt-2">
-                <button
-                    onClick={() => setSelectedGame(null)}
-                    className="bg-[#ff6b35] px-4 py-2 text-sm font-bold text-white hover:opacity-90 transition cursor-pointer"
-                >
-                    ← Back
-                </button>
+                    <button
+                        onClick={() => setSelectedGame(null)}
+                        className="bg-[#ff6b35] px-4 py-2 text-sm font-bold text-white hover:opacity-90 transition cursor-pointer"
+                    >
+                        ← Back
+                    </button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
@@ -153,36 +153,27 @@ const games: Game[] = [
         value: 'memoryGame',
         image: '🧠',
         description: 'Memorize and click the numbers in order. Levels get harder as the speed and count increase.', 
-        component: <Test />
+        component: <MemoryGame />
     },
-    {
-        name: 'Tetris',
-        value: 'tetris',
-        image: '🟦',
-        description: 'Tetris is a classic arcade game where you have to clear lines of falling blocks to score points.',
-        component: <Test />
-    },
+    // {
+    //     name: 'Tetris',
+    //     value: 'tetris',
+    //     image: '🟦',
+    //     description: 'Tetris is a classic arcade game where you have to clear lines of falling blocks to score points.',
+    //     component: <Tetris />
+    // },
     {
         name: 'Snake',
         value: 'snake',
         image: '🐍',
         description: 'Snake is a classic arcade game where you have to eat apples and avoid obstacles to grow and grow.',
-        component: <Test />
+        component: <Snake />
     },
-    {
-        name: 'Sudoku',
-        value: 'sudoku',
-        image: '🔢',
-        description: 'Sudoku is a classic arcade game where you have to fill in the numbers to complete the grid.', 
-        component: <Test />
-    },
+    // {
+    //     name: 'Sudoku',
+    //     value: 'sudoku',
+    //     image: '🔢',
+    //     description: 'Sudoku is a classic arcade game where you have to fill in the numbers to complete the grid.', 
+    //     component: <Sudoku />
+    // },
 ]
-
-
-function Test() {
-    return (
-        <div className="relative h-full w-full overflow-hidden text-white">
-            asdasd
-        </div>
-    )
-}

@@ -195,7 +195,7 @@ const SpaceDodger: React.FC = () => {
 
     return (
         <div className="relative flex flex-col items-center gap-4 p-4">
-            <div className="text-xl font-bold">Score: {score}</div>
+            <div className="text-xl text-white font-bold">Score: {score}</div>
             <canvas
                 ref={canvasRef}
                 width={config.canvasSize.width}
@@ -204,15 +204,22 @@ const SpaceDodger: React.FC = () => {
             />
 
             {gameOver && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60">
-                    <p className="text-xl font-bold text-red-500 mb-3">Game Over</p>
+                <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                }}>
+                    <p className="text-xl font-bold text-white mb-3">Game Over</p>
                     <Button onClick={resetGame}>Play Again</Button>
                 </div>
             )}
 
-            <div className="text-sm text-foreground">Use arrow keys to move</div>
+            <div className="text-sm text-white">Use arrow keys to move</div>
         </div>
     );
 };
-
 export default SpaceDodger;

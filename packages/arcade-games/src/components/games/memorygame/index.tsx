@@ -206,9 +206,9 @@ const MemoryGame: React.FC = () => {
         />
         {gameOver && (
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60">
-            <p className="text-xl font-bold text-red-500 mb-2">Game Over</p>
-            <p className="text-lg text-white mb-4">Reached Level {level}</p>
-            <Button onClick={resetGame}>Play Again</Button>
+                <p className="text-xl font-bold text-red-500 mb-2">Game Over</p>
+                <p className="text-lg text-white mb-4">Reached Level {level}</p>
+                <Button onClick={resetGame}>Play Again</Button>
             </div>
         )}
 
