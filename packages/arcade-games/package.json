@@ -14,7 +14,7 @@
     "game",
     "library",
     "typescript",
-    "tailwindcss"
+    "tailwindcssv4"
   ],
   "exports": {
     ".": {
