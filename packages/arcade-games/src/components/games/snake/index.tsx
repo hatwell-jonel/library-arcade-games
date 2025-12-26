@@ -349,7 +349,7 @@ const SnakeGame: React.FC = () => {
     const canvasSize = config.gridSize * config.cellSize;
 
     return (
-        <div className="relative flex flex-col items-center gap-4 p-4 max-w-xl mx-auto">
+        <div className="relative flex flex-col items-center gap-4 p-4 max-w-xl mx-auto bg-gray-800">
             <div className="text-3xl font-bold text-green-500">🐍 Snake Game</div>
 
             <div className="flex gap-8 text-lg">
@@ -369,10 +369,10 @@ const SnakeGame: React.FC = () => {
             />
 
             <div className="flex gap-2">
-                <Button onClick={togglePause} variant="outline" disabled={state.phase === 'gameover'}>
+                <Button onClick={togglePause} variant="outline" disabled={state.phase === 'gameover'} className='text-foreground'>
                     {state.phase === 'paused' ? 'Resume' : 'Pause'}
                 </Button>
-                <Button onClick={resetGame} variant="outline">
+                <Button onClick={resetGame} variant="outline" className='text-foreground'>
                     Restart
                 </Button>
             </div>
@@ -387,7 +387,7 @@ const SnakeGame: React.FC = () => {
                     variant="outline"
                     onClick={() => handleDirectionChange('UP')}
                     disabled={state.phase !== 'playing'}
-                    className="text-2xl"
+                    className="text-2xl text-foreground"
                 >
                     ↑
                 </Button>
@@ -397,7 +397,7 @@ const SnakeGame: React.FC = () => {
                     variant="outline"
                     onClick={() => handleDirectionChange('LEFT')}
                     disabled={state.phase !== 'playing'}
-                    className="text-2xl"
+                    className="text-2xl text-foreground"
                 >
                     ←
                 </Button>
@@ -406,7 +406,7 @@ const SnakeGame: React.FC = () => {
                     variant="outline"
                     onClick={() => handleDirectionChange('DOWN')}
                     disabled={state.phase !== 'playing'}
-                    className="text-2xl"
+                    className="text-2xl text-foreground"
                 >
                     ↓
                 </Button>
@@ -415,7 +415,7 @@ const SnakeGame: React.FC = () => {
                     variant="outline"
                     onClick={() => handleDirectionChange('RIGHT')}
                     disabled={state.phase !== 'playing'}
-                    className="text-2xl"
+                    className="text-2xl text-foreground"
                 >
                     →
                 </Button>
