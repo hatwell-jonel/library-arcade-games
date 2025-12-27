@@ -213,8 +213,16 @@ const SpaceDodger: React.FC = () => {
                     alignItems: 'center',
                     backgroundColor: 'rgba(0, 0, 0, 0.6)',
                 }}>
-                    <p className="text-xl font-bold text-white mb-3">Game Over</p>
-                    <Button onClick={resetGame}>Play Again</Button>
+                    <p className="text-xl font-bold text-white mb-3">GAME OVER</p>
+                    <Button 
+                        onClick={resetGame}
+                        style={{
+                        border: '1px solid white',
+                        padding: '10px',
+                        marginTop: '16px',
+                        cursor: 'pointer',
+                    }}
+                    >Play Again</Button>
                 </div>
             )}
 
