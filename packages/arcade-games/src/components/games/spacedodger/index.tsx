@@ -31,6 +31,15 @@ const config = {
     player: { x: 200, y: 350, width: 25, height: 50 }
 }
 
+
+const buttonOutlineStyle = {
+    border: '1px solid white',
+    padding: '10px',
+    cursor: 'pointer',
+    backgroundColor: 'transparent',
+    color: 'white',
+}
+
 const SpaceDodger: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const scoreRef = useRef(0);
@@ -59,8 +68,10 @@ const SpaceDodger: React.FC = () => {
         setGameOver(false);
     };
 
+    const handleDirectionPress = (direction: string, pressed: boolean) => {
+        gameStateRef.current.keys[direction] = pressed;
+    };
 
-    
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -195,13 +206,84 @@ const SpaceDodger: React.FC = () => {
 
     return (
         <div className="relative flex flex-col items-center gap-4 p-4">
-            <div className="text-xl text-white font-bold">Score: {score}</div>
+            <div className="text-xl text-white font-bold">🚀 Space Dodger </div>
+            <div className="text-xl text-white font-bold"> Score: {score}</div>
             <canvas
                 ref={canvasRef}
                 width={config.canvasSize.width}
                 height={config.canvasSize.height}
                 className="border-2 border-gray-300"
             />
+
+            {/* Touch controls for mobile */}
+            <div
+                style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(3, 1fr)', // grid-cols-3
+                    gap: '0.5rem',                          // gap-2
+                    width: '12rem',                          // w-48
+                    marginTop: '0.5rem',                     // mt-2
+                }}
+            >
+                <div></div>
+                <Button
+                    size="lg"
+                    variant="outline"
+                    onMouseDown={() => handleDirectionPress('ArrowUp', true)}
+                    onMouseUp={() => handleDirectionPress('ArrowUp', false)}
+                    onMouseLeave={() => handleDirectionPress('ArrowUp', false)}
+                    onTouchStart={() => handleDirectionPress('ArrowUp', true)}
+                    onTouchEnd={() => handleDirectionPress('ArrowUp', false)}
+                    disabled={gameOver}
+                    className="text-2xl"
+                    style={buttonOutlineStyle}
+                >
+                    ↑
+                </Button>
+                <div></div>
+                <Button
+                    size="lg"
+                    variant="outline"
+                    onMouseDown={() => handleDirectionPress('ArrowLeft', true)}
+                    onMouseUp={() => handleDirectionPress('ArrowLeft', false)}
+                    onMouseLeave={() => handleDirectionPress('ArrowLeft', false)}
+                    onTouchStart={() => handleDirectionPress('ArrowLeft', true)}
+                    onTouchEnd={() => handleDirectionPress('ArrowLeft', false)}
+                    disabled={gameOver}
+                    className="text-2xl"
+                    style={buttonOutlineStyle}
+                >
+                    ←
+                </Button>
+                <Button
+                    size="lg"
+                    variant="outline"
+                    onMouseDown={() => handleDirectionPress('ArrowDown', true)}
+                    onMouseUp={() => handleDirectionPress('ArrowDown', false)}
+                    onMouseLeave={() => handleDirectionPress('ArrowDown', false)}
+                    onTouchStart={() => handleDirectionPress('ArrowDown', true)}
+                    onTouchEnd={() => handleDirectionPress('ArrowDown', false)}
+                    disabled={gameOver}
+                    className="text-2xl"
+                    style={buttonOutlineStyle}
+                >
+                    ↓
+                </Button>
+                <Button
+                    size="lg"
+                    variant="outline"
+                    onMouseDown={() => handleDirectionPress('ArrowRight', true)}
+                    onMouseUp={() => handleDirectionPress('ArrowRight', false)}
+                    onMouseLeave={() => handleDirectionPress('ArrowRight', false)}
+                    onTouchStart={() => handleDirectionPress('ArrowRight', true)}
+                    onTouchEnd={() => handleDirectionPress('ArrowRight', false)}
+                    disabled={gameOver}
+                    className="text-2xl"
+                    style={buttonOutlineStyle}
+                >
+                    →
+                </Button>
+            </div>
 
             {gameOver && (
                 <div style={{
@@ -211,22 +293,25 @@ const SpaceDodger: React.FC = () => {
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
                 }}>
-                    <p className="text-xl font-bold text-white mb-3">GAME OVER</p>
+                    <p className="text-3xl font-bold text-white mb-3">GAME OVER</p>
+                    <p className="text-xl text-yellow-400 mb-4">Final Score: {score}</p>
                     <Button 
                         onClick={resetGame}
-                        style={{
-                            border: '1px solid white',
-                            padding: '10px',
-                            marginTop: '16px',
-                            cursor: 'pointer',
-                        }}
-                    >Play Again</Button>
+                        size="lg"
+                        className="bg-blue-600 hover:bg-blue-700"
+                        style={buttonOutlineStyle}
+
+                    >
+                        Play Again
+                    </Button>
                 </div>
             )}
 
-            <div className="text-sm text-white">Use arrow keys to move</div>
+            <div className="text-sm text-gray-400 text-center max-w-md">
+                Arrow keys or touch controls to move • Dodge the red circles • Speed increases every 20 points!
+            </div>
         </div>
     );
 };
