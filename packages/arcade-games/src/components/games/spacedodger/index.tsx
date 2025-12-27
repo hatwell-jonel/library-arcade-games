@@ -217,11 +217,11 @@ const SpaceDodger: React.FC = () => {
                     <Button 
                         onClick={resetGame}
                         style={{
-                        border: '1px solid white',
-                        padding: '10px',
-                        marginTop: '16px',
-                        cursor: 'pointer',
-                    }}
+                            border: '1px solid white',
+                            padding: '10px',
+                            marginTop: '16px',
+                            cursor: 'pointer',
+                        }}
                     >Play Again</Button>
                 </div>
             )}

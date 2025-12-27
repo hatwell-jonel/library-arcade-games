@@ -192,11 +192,14 @@ const MemoryGame: React.FC = () => {
 
     return (
         <div className="relative flex flex-col items-center gap-4 p-4">
-        <div className="flex gap-8 text-xl font-bold">
+        <div className="flex gap-8 text-xl font-bold text-white">
             <div>Level: {level}</div>
+            <div style={{
+                marginInline: "3px",
+            }}>|</div>
             <div>Numbers: {getNumberCount(level)}</div>
         </div>
-        <div className="text-lg font-semibold text-blue-400 h-6">{message}</div>
+        <div className="text-lg font-semibold h-6 text-white">{message}</div>
         <canvas
             ref={canvasRef}
             width={config.canvasSize.width}
@@ -205,21 +208,83 @@ const MemoryGame: React.FC = () => {
             onClick={handleCanvasClick}
         />
         {gameOver && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60">
-                <p className="text-xl font-bold text-red-500 mb-2">Game Over</p>
-                <p className="text-lg text-white mb-4">Reached Level {level}</p>
-                <Button onClick={resetGame}>Play Again</Button>
+            <div
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                }}
+            >
+            <p
+                style={{
+                    fontSize: '1.25rem',
+                    fontWeight: 700,    
+                    color: '#ef4444',   
+                    marginBottom: '0.5rem'
+                }}
+            >
+                Game Over
+            </p>
+
+            <p
+                style={{
+                    fontSize: '1.125rem',  
+                    color: '#ffffff',     
+                }}
+            >
+                Reached Level {level}
+            </p>
+
+            <Button 
+                onClick={resetGame}
+                style={{
+                    border: '1px solid white',
+                    padding: '10px',
+                    marginTop: '16px',
+                    cursor: 'pointer',
+                }}
+            >
+                Play Again
+            </Button>
             </div>
         )}
 
         {showOverlay.visible && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60">
-            <p className="text-2xl font-bold text-yellow-400">{showOverlay.text}</p>
+            <div
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                }}
+                >
+                    <p
+                        style={{
+                        fontSize: '1.5rem',        
+                        fontWeight: '700',         
+                        color: '#facc15',  
+                        }}
+                    >
+                        {showOverlay.text}
+                    </p>
             </div>
         )}
 
         <div className="text-sm text-center text-foreground max-w-md">
-            <div>Memorize the numbers, then click them in sequence (1, 2, 3...)</div>
+            <div className='text-white'>Memorize the numbers, then click them in sequence (1, 2, 3...)</div>
             <div className="mt-1 text-xs text-gray-400">Green circle = next number to click (level 1 only)</div>
         </div>
         </div>
@@ -227,3 +292,5 @@ const MemoryGame: React.FC = () => {
 };
 
 export default MemoryGame;
+
+
